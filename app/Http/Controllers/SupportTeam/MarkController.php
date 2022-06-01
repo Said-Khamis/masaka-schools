@@ -9,6 +9,7 @@ use App\Models\Setting;
 use App\Repositories\ExamRepo;
 use App\Repositories\MarkRepo;
 use App\Repositories\MyClassRepo;
+use App\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
 use App\Repositories\StudentRepo;
 use Illuminate\Http\Request;
@@ -19,12 +20,13 @@ class MarkController extends Controller
 {
     protected $my_class, $exam, $student, $year, $user, $mark;
 
-    public function __construct(MyClassRepo $my_class, ExamRepo $exam, StudentRepo $student, MarkRepo $mark)
+    public function __construct(MyClassRepo $my_class, ExamRepo $exam, StudentRepo $student, MarkRepo $mark, UserRepo $user)
     {
         $this->exam =  $exam;
         $this->mark =  $mark;
         $this->student =  $student;
         $this->my_class =  $my_class;
+        $this->user = $user;
         $this->year =  Qs::getSetting('current_session');
 
        // $this->middleware('teamSAT', ['except' => ['show', 'year_selected', 'year_selector', 'print_view'] ]);
@@ -190,7 +192,9 @@ class MarkController extends Controller
         $exam = $this->exam->find($exam_id);
         $marks = $this->exam->getMark($p);
         $class_type = $this->my_class->findTypeByClass($class_id);
-
+        $class_name = json_decode(json_encode($this->my_class->find($class_id)));
+        $subject_name = json_decode(json_encode($this->my_class->findSubject($subject_id)));
+        $exam_name = json_decode(json_encode($exam));
         $mks = $req->all();
 
         /** Test, Exam, Grade **/
@@ -198,27 +202,22 @@ class MarkController extends Controller
         {
             $all_st_ids[] = $mk->student_id;
 
-                $d['exm'] = $exm = $mks['exm_'.$mk->id];
+            $d['exm'] = $exm = $mks['exm_'.$mk->id];
 
-
-            /** SubTotal Grade, Remark, Cum, CumAvg**/
-
-        
-         /*   if($exam->term < 3){
-                $grade = $this->mark->getGrade($total, $class_type->id);
-            }
-
-            if($exam->term == 3){
-                $d['cum'] = $this->mark->getSubCumTotal($total, $st_id, $subject_id, $class_id, $this->year);
-                $d['cum_ave'] = $cav = $this->mark->getSubCumAvg($total, $st_id, $subject_id, $class_id, $this->year);
-                $grade = $this->mark->getGrade(round($cav), $class_type->id);
-            }*/
             $grade = $this->mark->getGrade($exm, $class_type->id);
             $d['grade_id'] = $grade ? $grade->id : NULL;
 
-            $this->exam->updateMark($mk->id, $d);
-        }
+            $stdName = json_decode(json_encode($this->user->getStudentUsers($mk->student_id)));
 
+            foreach($stdName as $key =>$value){
+                $ujumbe = 'Mwanafunzi '.$value->name.' Mwenye Namba ya Usajili '.$value->username.' Mtihani wa '.$exam_name->name.' Amepata '.$exm.' Kwenye Somo la '.$subject_name->name;
+                $this->mark->sendSmsToParents($value->phone, $ujumbe);
+            }
+         
+            $this->exam->updateMark($mk->id, $d);
+
+
+        }
         /** Sub Position Begin  **/
 
         foreach($marks->sortBy('user.name') as $mk)

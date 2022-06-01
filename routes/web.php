@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('graduated', 'StudentRecordController@graduated')->name('students.graduated');
             Route::put('not_graduated/{id}', 'StudentRecordController@not_graduated')->name('st.not_graduated');
             Route::get('list/{class_id}', 'StudentRecordController@listByClass')->name('students.list');
-
+            Route::post('upload/excel', 'StudentRecordController@upload_excel')->name('')
             /* Promotions */
             Route::post('promote_selector', 'PromotionController@selector')->name('students.promote_selector');
             Route::get('promotion/manage', 'PromotionController@manage')->name('students.promotion_manage');

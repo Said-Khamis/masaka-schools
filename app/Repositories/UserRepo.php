@@ -72,4 +72,9 @@ class UserRepo {
     {
         return BloodGroup::orderBy('name')->get();
     }
+
+    public function getStudentUsers($id)
+    {
+        return User::where(['id' => $id])->get();
+    }
 }
