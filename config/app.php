@@ -52,9 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost/shule-app/'),
+    'url' => env('APP_URL', 'http://localhost/masaka_schools/'),
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/shule-app/public'),
+    'asset_url' => env('ASSET_URL', 'http://localhost/masaka_schools/public'),
 
     /*
     |--------------------------------------------------------------------------
