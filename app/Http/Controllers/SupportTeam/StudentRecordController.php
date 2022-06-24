@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class StudentRecordController extends Controller
 {
@@ -182,4 +183,35 @@ class StudentRecordController extends Controller
         return back()->with('flash_success', __('msg.del_ok'));
     }
 
+    public function upload_excel(Request $request)
+    {
+
+         // if ($request->file('file')) {
+dd($request->all());
+            $folderPath = 'storage/uploads/';
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $fileName = $folderPath . uniqid() . '.' . $extension;
+
+            $path = config('app.url').'/public/assets';
+
+            move_uploaded_file($path, $fileName);
+
+            $array = array('delimiter' => ',');
+
+            $file_handle = fopen($request->file('file'), 'r');
+            while (!feof($file_handle)) {
+                $line_of_text[] = fgetcsv($file_handle, 0, $array['delimiter']);
+            }
+            fclose($file_handle);
+            
+            $data = [
+                'filename' => $fileName,
+                'content' => $line_of_text[0]
+            ];
+
+            return json_encode($data);
+        // }
+
+        // return json_encode("No File Found");
+    }
 }
