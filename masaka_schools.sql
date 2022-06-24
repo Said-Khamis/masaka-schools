@@ -106,12 +106,9 @@ CREATE TABLE `class_types` (
 --
 
 INSERT INTO `class_types` (`id`, `name`, `code`, `created_at`, `updated_at`) VALUES
-(1, 'Pre Nursery', 'PN', NULL, NULL),
-(2, 'Nursery', 'N', NULL, NULL),
-(3, 'Primary', 'P', NULL, NULL),
-(4, 'Junior Secondary', 'J', NULL, NULL),
-(5, 'Senior Secondary', 'S', NULL, NULL);
-
+(1, 'Nursery', 'N', NULL, NULL),
+(2, 'Primary', 'P', NULL, NULL),
+(3, 'Secondary', 'S', NULL, NULL);
 -- --------------------------------------------------------
 
 --

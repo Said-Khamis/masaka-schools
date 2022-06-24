@@ -23,7 +23,7 @@
     <tr>
         <th rowspan="2">SUBJECTS</th>
         <th colspan="3">CONTINUOUS ASSESSMENT</th>
-        <th rowspan="2">EXAM<br>(60)</th>
+        <th rowspan="2">EXAM</th>
         <th rowspan="2">FINAL MARKS <br> (100%)</th>
         <th rowspan="2">GRADE</th>
         <th rowspan="2">SUBJECT <br> POSITION</th>
@@ -41,8 +41,6 @@
         <th rowspan="2">REMARKS</th>
     </tr>
     <tr>
-        <th>CA1(20)</th>
-        <th>CA2(20)</th>
         <th>TOTAL(40)</th>
     </tr>
     </thead>

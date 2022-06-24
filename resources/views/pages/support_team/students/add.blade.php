@@ -188,9 +188,7 @@
                 {!! Qs::getPanelOptions() !!}
             </div>
             <div class="card-body">
-                <form>
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Select Class:</label>
@@ -205,16 +203,50 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Select File:</label>
-                                <input type="file" name="dorm_room_no" placeholder="Dormitory Room No" class="form-input-styled" >
+                                <input type="file" id="file_uploader" class="form-input-styled" >
                             </div>
                         </div>
 
-                        
-
                     </div>
-                </form>
-
             </div>
 
         </div>
+
+        <script type="text/javascript">
+             $("#file_uploader").change(function() {
+                      console.log('changed')
+
+                      var uploader = $("#file_uploader");
+                      // var data = new FormData()
+                      // data.append('file', uploader[0].files[0]);
+                      // data.append('_token',token())
+                      console.log(uploader[0].files[0],token())
+                      // ajax('{{ route('students.upload_excel')}}', "POST", [{'file':uploader[0].files[0],'_token':token()}], function(response){console.log(response)})
+
+
+                      $.ajax({
+                         processData: false,
+                         contentType: false,
+                         type: 'POST',
+                         headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                         },
+                         dataType: 'json',
+                         data: [{'file':uploader[0].files[0],_token : $('meta[name="csrf-token"]').attr('content'), }],
+                         url: '{{ route('students.upload_excel')}}',
+                         success: function(data){
+                            console.log( 'the data is', data)
+                            // $('.member_field_select').each(function(){
+                            //      var field = $(this)
+                            //      field.empty()
+                            //      $.each(data['content'], function(index, value){
+                            //      field.append('<option value="'+value+'">' +value+ '</option>')
+                            //   })
+                            //   $('#import-fields').removeClass('d-none');
+                            // })
+                         }
+
+                      })
+                   })
+        </script>
     @endsection
