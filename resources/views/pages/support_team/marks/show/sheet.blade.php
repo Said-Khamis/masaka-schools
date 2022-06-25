@@ -28,7 +28,7 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $sub->name }}</td>
             @foreach($marks->where('subject_id', $sub->id)->where('exam_id', $ex->id) as $mk)
-                <td>{{ ($mk->t1) ?: '-' }}</td>
+                <td>{{ ($mk->t1) ?: '-' }</td>
                 <td>{{ ($mk->t2) ?: '-' }}</td>
                 <td>{{ ($mk->exm) ?: '-' }}</td>
                 <td>
