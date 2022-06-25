@@ -209,10 +209,10 @@ class MarkController extends Controller
 
             $stdName = json_decode(json_encode($this->user->getStudentUsers($mk->student_id)));
 
-            foreach($stdName as $key =>$value){
-                $ujumbe = 'Mwanafunzi '.$value->name.' Mwenye Namba ya Usajili '.$value->username.' Mtihani wa '.$exam_name->name.' Amepata '.$exm.' Kwenye Somo la '.$subject_name->name;
-                $this->mark->sendSmsToParents($value->phone, $ujumbe);
-            }
+            // foreach($stdName as $key =>$value){
+            //     $ujumbe = 'Mwanafunzi '.$value->name.' Mwenye Namba ya Usajili '.$value->username.' Mtihani wa '.$exam_name->name.' Amepata '.$exm.' Kwenye Somo la '.$subject_name->name;
+            //     $this->mark->sendSmsToParents($value->phone, $ujumbe);
+            // }
          
             $this->exam->updateMark($mk->id, $d);
 
