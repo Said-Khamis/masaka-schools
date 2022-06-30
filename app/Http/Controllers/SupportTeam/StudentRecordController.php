@@ -187,7 +187,7 @@ class StudentRecordController extends Controller
     {
 
          // if ($request->file('file')) {
-dd($request->all());
+            dd($request->all());
             $folderPath = 'storage/uploads/';
             $extension = $request->file('file')->getClientOriginalExtension();
             $fileName = $folderPath . uniqid() . '.' . $extension;
