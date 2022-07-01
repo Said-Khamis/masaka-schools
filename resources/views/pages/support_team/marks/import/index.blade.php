@@ -49,12 +49,13 @@
 			</div>
 		</div>
         <div class="row">
-            <table class="col-3 table tableforContact" id="contactinformation">
+            <table class="table tableforContact" id="contactinformation">
               <thead>
                 <tr>
                 </tr>
               </thead>
               <tbody>
+
               </tbody>
             </table>
         </div>
@@ -83,9 +84,10 @@
              url: '{{ route('marks.upload_excel')}}',
              success: function(data){
 
-                console.log(Object.keys(data))
-                var xxx = Object.keys(data).reduce((a, b) => data[a] > data[b] ? a : b);
-                makeTableFromExcel(data[xxx])
+                var big = Object.keys(data).reduce((a, b) => data[a] > data[b] ? a : b);
+                var nextBig = nextBiggest(Object.keys(data));
+
+                makeTableFromExcel(data[big],data[nextBig])
                              
              }
 
@@ -93,23 +95,32 @@
        })
 
 
-        function makeTableFromExcel(data)
+        function makeTableFromExcel(data,heading)
         {
             const table = document.querySelector("#contactinformation");
             const headers = table.querySelector("thead tr");
             const body = table.querySelector("tbody");
-            const input = '<input type="input" id="submit" value="Submit" class="form-control">';
-            const button = '<input tupe="button" value="submit" class="btn_success">';
-                                
+                  // console.log(heading)  
+
             // Create headers
-            for (const key in data[xxx]) {
-              const header = document.createElement("th");
-              header.innerText = key;
-              headers.append(header);
+            for (var i = heading.length - 1; i >= 0; i--) {
+                // console.log(key)
+                  const header = document.createElement("th");
+                  header.innerText =heading[i];
+                  headers.append(header);
             }
+
+            // for (const key in heading[0]) {
+            //     console.log(key)
+            //   const header = document.createElement("th");
+            //   header.innerText = key;
+            //   headers.append(header);
+            // }
+
 
             // Create tbody rows
             data.forEach(obj => {
+                // console.log(obj)
               // Create row
               const row = document.createElement("tr");
               body.append(row);
@@ -119,10 +130,33 @@
                 const value = document.createElement("td");
 
                 value.innerText = obj[key];
-                row.append(value,input,button);
+                row.append(value);
               }
+                  var input = document.createElement("input");
+                  input.setAttribute('type', 'text');
+                  var button = document.createElement('input');
+                  button.type ='button';button.id ='submit';button.value ='Send';button.className ='btn';
+                  row.append(input,button)
             });
         }
+
+        function nextBiggest(arr) 
+        {
+          let max = -Infinity, result = -Infinity;
+
+          for (const value of arr) {
+            const nr = Number(value)
+
+            if (nr > max) {
+              [result, max] = [max, nr] // save previous max
+            } else if (nr < max && nr > result) {
+              result = nr; // new second biggest
+            }
+          }
+
+          return result;
+        }
+
 
 
 	</script>
