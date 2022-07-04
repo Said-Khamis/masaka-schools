@@ -120,18 +120,18 @@
 
             // Create tbody rows
             data.forEach(obj => {
-                // console.log(obj)
-              // Create row
-              const row = document.createElement("tr");
-              body.append(row);
-              
-              // Create row element
-              for (const key in obj) {
-                const value = document.createElement("td");
 
-                value.innerText = obj[key];
-                row.append(value);
-              }
+                delete obj[0];
+                // Create row
+                const row = document.createElement("tr");
+                body.append(row);
+              
+                // Create row element
+                for (const key in obj) {
+                    const value = document.createElement("td");
+                    value.innerText = obj[key];
+                    row.append(value);
+                }
                   var input = document.createElement("input");
                   input.setAttribute('type', 'text');
                   var button = document.createElement('input');
