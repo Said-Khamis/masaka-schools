@@ -12,6 +12,7 @@ use App\Repositories\MyClassRepo;
 use App\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
 use App\Repositories\StudentRepo;
+use App\Services\SMSService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -536,6 +537,32 @@ class MarkController extends Controller
             
             return json_encode('Wrong file extension Only CSV is allowed');
             return redirect()->back();
+        }
+    }
+
+    public function sendSMS(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $students =  json_decode($data['data'], true);
+            foreach($students as $key=>$rows) {
+                $message = "MASAKA NURSERY AND PRIMARY SCHOOL \n";
+                $message .= "Mwanafunzi ".$rows['Pupil']." \n";
+                $message .= "Amepata matokeo yafuatayo kwenye mtihani wake wa Mid-term: \n";
+                $message .= "Somo la Mathematics: ".$rows['Math']." - ".$rows['MathGrade']." \n";
+                $message .= "Somo la English: ".$rows['English']." - ".$rows['EnglishGrade']."\n";
+                $message .= "Somo la Kiswahili: ".$rows['Kiswahili']." - ".$rows['KiswahiliGrade']."\n";
+                $message .= "Somo la Science & Technology: ".$rows['Science']." - ".$rows['ScienceGrade']."\n";
+                $message .= "Somo la SST: ".$rows['SST']." - ".$rows['SSTGrade']."\n";
+                $message .= "Somo la CME: ".$rows['CME']." - ".$rows['CMEGrade']."\n";
+                $message .= "Amekuwa mwanafunzi wa: ".$rows['Position']." \n";
+                $message .= "Ahsante";
+                $sms = app(SMSService::class);
+                $response = $sms->registration($rows['Phone'], $message);
+            }
+            return $data;
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 

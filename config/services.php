@@ -36,4 +36,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'sms' => [
+        'uri' => env('API_URI', 'https://apisms.beem.africa/v1/send'),
+        'key' => env('API_KEY'),
+        'secret' => env('API_SECRET'),
+    ],
+
 ];
