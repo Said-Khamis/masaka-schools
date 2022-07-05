@@ -547,16 +547,17 @@ class MarkController extends Controller
             $students =  json_decode($data['data'], true);
             foreach($students as $key=>$rows) {
                 $message = "MASAKA NURSERY AND PRIMARY SCHOOL \n";
-                $message .= "Mwanafunzi ".$rows['Pupil']." \n";
-                $message .= "Amepata matokeo yafuatayo kwenye mtihani wake wa Mid-term: \n";
-                $message .= "Somo la Mathematics: ".$rows['Math']." - ".$rows['MathGrade']." \n";
-                $message .= "Somo la English: ".$rows['English']." - ".$rows['EnglishGrade']."\n";
-                $message .= "Somo la Kiswahili: ".$rows['Kiswahili']." - ".$rows['KiswahiliGrade']."\n";
-                $message .= "Somo la Science & Technology: ".$rows['Science']." - ".$rows['ScienceGrade']."\n";
-                $message .= "Somo la SST: ".$rows['SST']." - ".$rows['SSTGrade']."\n";
-                $message .= "Somo la CME: ".$rows['CME']." - ".$rows['CMEGrade']."\n";
-                $message .= "Amekuwa mwanafunzi wa: ".$rows['Position']." \n";
-                $message .= "Ahsante";
+                $message .= "PUPIL'S NAME: ".$rows['Pupil']." \n";
+                $message .= "MID-TERM RESULTS\n";
+                $message .= "MATHEMATICS: ".$rows['Math']." - ".$rows['MathGrade']." \n";
+                $message .= "ENGLISH: ".$rows['English']." - ".$rows['EnglishGrade']."\n";
+                $message .= "KISWAHILI: ".$rows['Kiswahili']." - ".$rows['KiswahiliGrade']."\n";
+                $message .= "SCIENCE AND TECHNOLOGY: ".$rows['Science']." - ".$rows['ScienceGrade']."\n";
+                $message .= "SOCIAL STUDIES: ".$rows['SST']." - ".$rows['SSTGrade']."\n";
+                $message .= "CIVIC AND MORAL EDUCATION: ".$rows['CME']." - ".$rows['CMEGrade']."\n";
+                $message .= "POSITION: ".$rows['Position']." \n";
+                $message .= "Quality Education is The Ultimate Investment. \n";
+                $message .= "THANKS";
                 $sms = app(SMSService::class);
                 $response = $sms->registration($rows['Phone'], $message);
             }
