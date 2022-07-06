@@ -325,6 +325,11 @@
         return token
     }
 
+    function fieldValue(fieldId){
+        return $("#"+fieldId).val()
+    }
+
+
 
 
 

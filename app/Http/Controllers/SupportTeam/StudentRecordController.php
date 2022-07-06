@@ -214,4 +214,9 @@ class StudentRecordController extends Controller
 
         // return json_encode("No File Found");
     }
+
+    public function get_class_student(Request $request)
+    {
+        return $this->student->findStudentsByClass($request->class_id);
+    }
 }

@@ -134,6 +134,7 @@ Route::post('upload/excel', 'StudentRecordController@upload_excel')->name('stude
             Route::post('select_year/{id}', 'MarkController@year_selected')->name('marks.year_select');
             Route::get('show/{id}/{year}', 'MarkController@show')->name('marks.show');
             Route::get('print/{id}/{exam_id}/{year}', 'MarkController@print_view')->name('marks.print');
+            Route::post('/class/student/', 'StudentRecordController@get_class_student')->name('class.student');
 
         });
 
@@ -176,5 +177,6 @@ Route::group(['namespace' => 'MyParent','middleware' => 'my_parent',], function(
 /************************* SMS *******************************/
 Route::group(['prefix' => 'sms', 'middleware' => 'super_admin'], function(){
     Route::get('/send_sms', 'HomeController@sms_index')->name('sms.send_sms');
+    Route::post('/sene_sms_parent', 'HomeController@sms_to_parent')->name('sms.send_to_parent');
 
 });

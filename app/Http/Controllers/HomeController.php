@@ -5,17 +5,20 @@ namespace App\Http\Controllers;
 use App\Helpers\Qs;
 use App\Repositories\UserRepo;
 use App\Models\Subject;
+use App\Repositories\SmsRepo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Repositories\MyClassRepo;
 use Exception;
-use Twilio\Rest\Client;
 
 class HomeController extends Controller
 {
     protected $user;
-    public function __construct(UserRepo $user)
+    public function __construct(MyClassRepo $my_class, UserRepo $user, SmsRepo $sms)
     {
         $this->user = $user;
+        $this->sms = $sms;
+        $this->my_class = $my_class;
     }
 
 
@@ -73,6 +76,19 @@ class HomeController extends Controller
 
         return view('pages.support_team.dashboard', compact('class'),$d);
     }
+
+    public function sms_index()
+    {
+        $data['selected'] = false;
+        $data['my_classes'] = $this->my_class->all();
+        return view('pages.admin.send_sms',$data);
+    }
+
+    public function sms_to_parent(Request $request)
+    {
+        return $this->sms->send_sms($request->phone_number,$request->message);
+    }
+
 
     
 }
