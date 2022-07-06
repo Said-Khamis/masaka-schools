@@ -12,6 +12,7 @@ use App\Repositories\MyClassRepo;
 use App\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
 use App\Repositories\StudentRepo;
+use App\Services\SMSService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -536,6 +537,33 @@ class MarkController extends Controller
             
             return json_encode('Wrong file extension Only CSV is allowed');
             return redirect()->back();
+        }
+    }
+
+    public function sendSMS(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $students =  json_decode($data['data'], true);
+            foreach($students as $key=>$rows) {
+                $message = "MASAKA NURSERY AND PRIMARY SCHOOL \n";
+                $message .= "PUPIL'S NAME: ".$rows['Pupil']." \n";
+                $message .= "MID-TERM RESULTS\n";
+                $message .= "MATHEMATICS: ".$rows['Math']." - ".$rows['MathGrade']." \n";
+                $message .= "ENGLISH: ".$rows['English']." - ".$rows['EnglishGrade']."\n";
+                $message .= "KISWAHILI: ".$rows['Kiswahili']." - ".$rows['KiswahiliGrade']."\n";
+                $message .= "SCIENCE AND TECHNOLOGY: ".$rows['Science']." - ".$rows['ScienceGrade']."\n";
+                $message .= "SOCIAL STUDIES: ".$rows['SST']." - ".$rows['SSTGrade']."\n";
+                $message .= "CIVIC AND MORAL EDUCATION: ".$rows['CME']." - ".$rows['CMEGrade']."\n";
+                $message .= "POSITION: ".$rows['Position']." \n";
+                $message .= "Quality Education is The Ultimate Investment. \n";
+                $message .= "THANKS";
+                $sms = app(SMSService::class);
+                $response = $sms->registration($rows['Phone'], $message);
+            }
+            return $data;
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 
