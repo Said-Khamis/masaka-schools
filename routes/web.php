@@ -1,8 +1,9 @@
 <?php
 
+
 Auth::routes();
 
-//Route::get('/test', 'TestController@index')->name('test');
+Route::get('/test', 'TestController@index')->name('test');
 Route::get('/privacy-policy', 'HomeController@privacy_policy')->name('privacy_policy');
 Route::get('/terms-of-use', 'HomeController@terms_of_use')->name('terms_of_use');
 
@@ -179,5 +180,4 @@ Route::group(['namespace' => 'MyParent','middleware' => 'my_parent',], function(
 Route::group(['prefix' => 'sms', 'middleware' => 'super_admin'], function(){
     Route::get('/send_sms', 'HomeController@sms_index')->name('sms.send_sms');
     Route::post('/sene_sms_parent', 'HomeController@sms_to_parent')->name('sms.send_to_parent');
-
 });

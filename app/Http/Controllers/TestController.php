@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\Hash;
+
 class TestController extends Controller
 {
     protected $mc, $exam, $student, $user;
@@ -13,7 +15,7 @@ class TestController extends Controller
 
     public function index()
     {
-
+        echo Hash::make("Admin");
     }
 
 }

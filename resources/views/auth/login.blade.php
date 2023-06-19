@@ -34,7 +34,6 @@
 
                             <div class="form-group ">
                                 <input required name="password" type="password" class="form-control" placeholder="{{ __('Password') }}">
-
                             </div>
 
                             <div class="form-group d-flex align-items-center">

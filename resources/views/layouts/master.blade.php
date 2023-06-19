@@ -16,8 +16,10 @@
 <body class="{{ in_array(Route::currentRouteName(), ['payments.invoice', 'marks.tabulation', 'marks.show', 'ttr.manage', 'ttr.show']) ? 'sidebar-xs' : '' }}">
 
 @include('partials.top_menu')
+
 <div class="page-content">
     @include('partials.menu')
+
     <div class="content-wrapper">
         @include('partials.header')
 
@@ -36,13 +38,15 @@
             <div id="ajax-alert" style="display: none"></div>
 
             @yield('content')
-        </div>
 
+        </div>
 
     </div>
 </div>
 
 @include('partials.inc_bottom')
+
 @yield('scripts')
+
 </body>
 </html>

@@ -259,6 +259,9 @@ class Qs
     public static function getSetting($type)
     {
         return Setting::where('type', $type)->first()->description;
+        //return Setting::where('type', $type)->first();
+        //echo Setting::where('type', $type)->first();
+        //return Setting::where('type',$type)->first();
     }
 
     public static function getCurrentSession()

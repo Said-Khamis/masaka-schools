@@ -52,9 +52,11 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://10.0.16.162/masaka_schools/'),
+    # 'url' => env('APP_URL', 'http://10.0.16.162/masaka_schools/'),
+    'url' => env('APP_URL', 'http://127.0.0.1/masaka_schools/'),
 
-    'asset_url' => env('ASSET_URL', 'http://10.0.16.162/masaka_schools/public'),
+    # 'asset_url' => env('ASSET_URL', 'http://10.0.16.162/masaka_schools/public'),
+    'asset_url' => env('ASSET_URL', 'http://127.0.0.1/masaka_schools/public'),
 
     /*
     |--------------------------------------------------------------------------

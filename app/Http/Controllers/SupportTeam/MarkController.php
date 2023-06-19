@@ -62,7 +62,8 @@ class MarkController extends Controller
     public function show($student_id, $year)
     {
         /* Prevent Other Students/Parents from viewing Result of others */
-        if(Auth::user()->id != $student_id && !Qs::userIsTeamSAT() && !Qs::userIsMyChild($student_id, Auth::user()->id)){
+        if(Auth::user()->id != $student_id && !Qs::userIsTeamSAT() &&
+            !Qs::userIsMyChild($student_id, Auth::user()->id)){
             return redirect(route('dashboard'))->with('pop_error', __('msg.denied'));
         }
 
@@ -95,18 +96,15 @@ class MarkController extends Controller
         foreach($d['subjects'] as $key => $value)
         {
             array_push($masomo,['masomo',$value->name]);
-            
-
-
         }
 
 
-        foreach($stdName as $key =>$value)
-        {
+        /*foreach($stdName as $key =>$value) {
             $ujumbe = 'Mwanafunzi '.$value->name.' Mwenye Namba ya Usajili '.$value->username.' Mtihani wa '.$exam_name->name.' Amepata '.$exm.' Kwenye Somo la '.$subject_name->name;
             $this->mark->sendSmsToParents($value->phone, $ujumbe);
-        }
-        dd($d['marks']);
+        }*/
+        //return response()->json($d);
+        //dd($d);
         return view('pages.support_team.marks.show.index', $d);
     }
 
@@ -275,7 +273,7 @@ class MarkController extends Controller
         return view('pages.support_team.marks.batch_fix', $d);
     }
 
-    public function batch_update(Request $req): \Illuminate\Http\JsonResponse
+    public function batch_update(Request $req)
     {
         $exam_id = $req->exam_id;
         $class_id = $req->my_class_id;
