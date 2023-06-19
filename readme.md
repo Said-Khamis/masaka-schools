@@ -95,3 +95,4 @@ Check Laravel 8 Requirements https://laravel.com/docs/8.x
 - View noticeboard and school events in calendar
 - Manage own profile
 
+"# masaka-schools" 
